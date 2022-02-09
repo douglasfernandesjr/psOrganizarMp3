@@ -31,15 +31,6 @@ function OrgMp3 {
         $folderPath = Split-Path $file.FullName
         $objFolder = $shell.Namespace($folderPath)
         $shellfile = $objFolder.ParseName($file.Name)
-    
-        # pegar o numero da musica e nome de verdade se existir
-        # for ($columnNumber = 0; $columnNumber -lt 300; ++$columnNumber) { 
-        #     $columnName = $objFolder.getDetailsOf($shellfile, $columnNumber) 
-        #     if ($columnName) {
-        #         Write-Output "$(([string]$columnNumber).PadLeft(3)) $columnName"
-        #     }
-        # }
-       
 
         $year = $objFolder.getDetailsOf($shellfile, 15)
         if (!$year) {
@@ -48,6 +39,9 @@ function OrgMp3 {
         $album = $objFolder.getDetailsOf($shellfile, 14)
         if (!$album) {
             $album = "AlbumNaoDefinido"
+        }else{
+            $album = $album -replace '/|\[|\]', ' '
+            $album = $album -replace '\:|\?|\"|\-', ''
         }
         ##13 ou 20 também
         $artist = $objFolder.getDetailsOf($shellfile, 237)
@@ -59,9 +53,12 @@ function OrgMp3 {
         }
 
         $title = $objFolder.getDetailsOf($shellfile, 21)
+        $ext = $objFolder.getDetailsOf($shellfile, 164)
         $fileName = $file.Name
         if($title){
-            $fileName = $title+".mp3"
+            $title = $title -replace '/|\[|\]', ' '
+            $title = $title -replace '\:|\?|\"|\-', ''
+            $fileName = $title+ $ext
         }
      
         $newPath = $dstRoot + $artist + "\" + $album + "_" + $year

@@ -2,7 +2,7 @@
 
 Script feito em powershell para organizar arquivos baseados em metadados de artista e album
 
-Move os arquivos para pastas baseadas nestas informações, as pastas serão criadas neste formato "artista/album".
+Move os arquivos para pastas baseadas nestas informações, as pastas serão criadas neste formato "artista\album".
 
 Útil para organizar pastas com várias músicas que estão esquecidas no PC.
 
